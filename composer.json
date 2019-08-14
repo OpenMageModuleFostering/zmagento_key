@@ -1,0 +1,16 @@
+{
+    "name": "OpenMageModuleFostering/ZMAGENTO_KEY",
+    "type": "magento-module",
+    "license": "GNU-Lesser-General-Public-License-(LGPL)",
+    "homepage": "",
+    "description": "This is the first release of the ZINation Automatic Product Catalog Builder for Magento.",
+    "authors": [
+    {
+        "name": "David Ker",
+        "email": "dker@zination.com"
+    }
+],
+    "suggest": {
+        "magento-hackathon/magento-composer-installer": "*"
+    }
+}

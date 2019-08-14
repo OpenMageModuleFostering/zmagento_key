@@ -1,0 +1,38 @@
+var j = $.noConflict();
+
+jbody = j("body");
+j(function(){
+    var l_connect_url = "<?php echo $this->getUrl('zinebuilder/index/connect/');?>?isAjax=true";
+    j("#zine_btn_connect").click(function(){
+      j.post(l_connect_url,
+            {'form_key': window.FORM_KEY}
+            )
+            .done(function(data,status){
+                alert(data.status) ;
+            })
+            .fail(function(data,status){
+                alert(data.status ) ;
+            });
+        
+    });
+    
+   j("#zine_btn_register_app").click(function(){
+        Element.show('loading-mask');
+        var l_register_app_url = "<?php echo $this->getUrl('zinebuilder/index/appregister/');?>?isAjax=true";
+        j.post(l_register_app_url,
+            {'form_key': window.FORM_KEY}
+        )
+        .done(function(data,status){
+            alert(data.status) ;
+        })
+        .fail(function(data, status){
+            alert(data.status) ;
+        });
+   
+   });
+});
+
+j(document).on({
+    ajaxStart: function() { jbody.addClass("loading");    },
+    ajaxStop: function() {  jbody.removeClass("loading"); }    
+});

@@ -1,0 +1,116 @@
+/* Start by setting display:none to make this hidden.
+   Then we position it in relation to the viewport window
+   with position:fixed. Width, height, top and left speak
+   for themselves. Background we set to 80% white with
+   our animation centered, and no-repeating */
+.modal {
+    display:    none;
+    position:   fixed;
+    z-index:    1000;
+    top:        0;
+    left:       0;
+    height:     100%;
+    width:      100%;
+    background: rgba( 255, 255, 255, .8 ) 
+                url('http://i.stack.imgur.com/FhHRx.gif') 
+                50% 50% 
+                no-repeat;
+}
+
+/* When the body has the loading class, we turn
+   the scrollbar off with overflow:hidden */
+body.loading {
+    overflow: hidden;   
+}
+
+/* Anytime the body has the loading class, our
+   modal element will be visible */
+body.loading .modal {
+    display: block;
+}
+
+div.app-box{
+    border-radius: 3px;
+    box-shadow: 0 1px 4px 1px rgba(0, 0, 0, 0.3);
+    background: none repeat scroll 0 0 rgba(0, 0, 0, 0.03);
+    width: 70% ;
+    margin-left: 15% ;
+    margin-top: 2% ;
+    padding: 15px ;
+    min-height: 150px ;
+}
+
+.app-content{
+    max-width: 100% ;
+    float: left ;
+    padding-left: 10px;
+}
+
+.app-img{
+    float: right ;
+    margin: 0 ;
+    padding-top: 15px ;
+    padding-right: 10px ;
+}
+
+.app-dashboard{
+    background: url('images/zine-builder-icon-for-Magento.png') no-repeat -16px -8px; 
+    width: 124px;
+    height: 116px;
+    margin-top: 5px ;
+}
+
+.app-login{
+    background: url('images/zine-builder-icon-for-Magento.png') no-repeat -8px -131px; 
+    width: 130px;
+    height: 129px;
+}
+
+.app-connect-api{
+    background: url('images/zine-builder-icon-for-Magento.png') no-repeat 0 -282px; 
+    width: 146px;
+    height: 95px;
+    margin-top: 10px ;
+}
+
+.app-title{
+    font-size: 150% ;
+    padding-bottom: 5% ;
+    font-weight: bold ;
+}
+
+.app-description{
+    font-size: 110% ;
+    padding-top: 5% ;
+    
+}
+
+.app-button{
+    background-color: transparent;
+    font-size: 105% ;
+    margin-top: 20% ;
+    padding-bottom: 15px ;
+}
+
+.app-button a{
+    text-decoration: none ;
+    border-style: solid ;
+    border-width: 1px ;
+    border-radius: 3px;
+    padding-top: 10px ;
+    padding-bottom: 10px ;
+    margin-right: 2% ;
+    width: 100px ;
+}
+
+.app-button a:hover{
+    color: #FFF ;
+    background-color: #ea7601 ;
+    border-color: #ea7601 ;
+    cursor: pointer ;
+}
+
+
+.app-button a span{
+    padding: 15px ;
+}

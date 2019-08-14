@@ -1,0 +1,128 @@
+<?php
+
+class Zination_Zinebuilder_Model_Product_Api extends Mage_Catalog_Model_Api_Resource
+{   
+    public function product_count(){
+        $json = array();
+        $collection = Mage::getModel('catalog/product') -> getCollection() ;
+        $json['count'] = count($collection) ;
+        
+        return $json ;
+    }
+    
+    public function products($curPage, $limit)
+    {
+        $json = array();
+        
+        $collection = Mage::getModel('catalog/product') 
+                        -> getCollection() 
+                        -> setPageSize($limit)
+                        -> setCurPage($curPage);
+        //$collection -> getSelect() -> limit($limit) ;
+        foreach( $collection as $product_all )
+        {
+            $sku = $product_all['sku'] ;
+            $product_id = Mage::getModel('catalog/product') -> getIdBySku($sku) ;
+            if ( $product_id )
+            { 
+	            //$product = Mage::getModel('catalog/product')->load($product_id) ;
+	            $product = $this -> _getProduct($product_id) ;
+                
+                $result = array( // Basic product data
+                        'product_id' => $product->getId(),
+                        'sku'        => $product->getSku(),
+                        'set'        => $product->getAttributeSetId(),
+                        'type'       => $product->getTypeId(),
+                        'categories' => $product->getCategoryIds(),
+                        'websites'   => $product->getWebsiteIds(),
+                        'href'       => $product->getProductUrl(),
+                        'brand'      => $product->getData('brand'),
+                        'image_url'      => $product->getImageUrl()
+                        );
+                
+                foreach ($product->getTypeInstance(true)->getEditableAttributes($product) as $attribute) {
+                    if ($this->_isAllowedAttribute($attribute, $attributes)) {
+                        $result[$attribute->getAttributeCode()] = $product->getData(
+                                                                $attribute->getAttributeCode());
+                    }
+                }
+                
+	            //$p = array() ;
+	            //$p['id'] = $product->getId();
+	            //$p['name'] = $product->getName();
+	            //$product['price'] = Mage::helper('core')->currency($product->getPrice(), true, false);
+	            //$p['description'] = $product->getDescription();
+	            //$product['image'] = (string)Mage::helper('catalog/image')->init($product, 'image');
+	            //$product['price'] = Mage::helper('core') -> currency($product->getPrice(), true, false) ;
+	            //$p['href'] = $product->getProductUrl() ;
+	            $mediaGallery = Mage::getModel('catalog/product')->load($product->getId())->getMediaGalleryImages()->getItems();
+	            $result['media_gallery'] = array() ;
+	            $productImage = array( // Basic Media Data
+	                    'product_id' => $product->getId(),
+	                    'src'        => $product->getImageUrl(),
+	                    'label'      => '',
+	                    'position'   => '1'
+	            ) ;
+	            
+	            $i = 0 ;
+	            
+                //loop through the images
+                foreach ($mediaGallery as $image){
+                        $productImage['src'] = $image['url'];
+                        $productImage['file'] = $image['file'] ;
+                        $productImage['position'] = $image['position'] ;
+                        $productImage['product_id'] = $image['product_id'] ;
+                        $productImage['disabled'] = $image['disabled'] ;
+                        $productImage['label'] = $image['label'] ;
+                        $productImage['disabled_default'] = $image['disabled_default'] ;
+                        $productImage['value_id'] = $image['value_id'] ;
+                        $productImage['label_default'] = $image['label_default'] ;
+                        
+                        array_push($result['media_gallery'], $productImage) ;
+                        
+                        $i = $i + 1 ;
+                        
+                }
+                
+                if ( 0 >= $i ){
+                    array_push($result['media_gallery'], $productImage) ;
+                }
+
+                array_push( $json, $result ) ;
+            }
+        }
+        
+        //$json['count'] = count($collection) ;
+        
+	    return $json;
+	}
+	
+	public function stores()
+	{
+	    $zinebuilder = Mage::getModel('zinebuilder/zinebuilder')
+	                   -> getCollection() -> getFirstItem() ;
+	                   
+	    $storeId = $this -> currentStore() ;  
+	    
+	    $store   = Mage::app() -> getStore($storeId) ;
+	    
+	    $result['store_id'] = $store -> getStoreId() ;
+	    $result['name'] = Mage::getStoreConfig('trans_email/ident_general/name') ;
+	    $result['email'] = Mage::getStoreConfig('trans_email/ident_general/email') ;
+	    $result['u_id']  = $zinebuilder -> getData('u_id') ;
+	    $result['phone'] = Mage::getStoreConfig('general/store_information/phone') ;
+	    $result['address'] = str_replace("\r\n", "<br/>", Mage::getStoreConfig('general/store_information/address'));
+	    $result['code'] = $store -> getCode() ;
+	    $result['currency_code'] = $store -> getCurrentCurrencyCode() ;
+	    $result['currency_symbol'] = Mage::app() -> getLocale()
+	                                             -> currency($result['currency_code'])
+	                                             -> getSymbol() ;
+	    $result['currency_name'] = Mage::app() -> getLocale()
+	                                           -> currency($result['currency_code'])
+	                                           -> getName();
+	    
+	    return $result ;
+	}
+}
+
+?>

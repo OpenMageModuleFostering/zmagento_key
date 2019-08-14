@@ -1,0 +1,32 @@
+<?xml version="1.0"?>
+<config>
+    <menu>
+        <zination translate="title" module="zinebuilder">
+            <title>ZINation</title>
+            <sort_order>999</sort_order>
+            <depends>
+                <module>Zination_Zinebuilder</module>
+            </depends>
+            <children>
+                <zinebuilder translate="title" module="zinebuilder">
+                    <title>Product Catalog Builder</title>
+                    <sort_order>0</sort_order>
+                    <action>zinebuilder/auth/index/</action>
+                </zinebuilder>
+            </children>
+        </zination>
+    </menu>
+    <acl>
+        <resources>
+            <admin>
+                <children>
+                    <zinebuilder translate="title" module="zinebuilder">
+                        <title>Product Catalog Builder</title>
+                        <sort_order>100</sort_order>
+                    </zinebuilder>
+                </children>
+            </admin>
+        </resources>
+    </acl>
+    
+</config>

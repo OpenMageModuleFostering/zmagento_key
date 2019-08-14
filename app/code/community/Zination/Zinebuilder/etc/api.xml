@@ -1,0 +1,43 @@
+<?xml version="1.0"?>
+<config>
+    <api>
+        <resources>
+                <zinebuilder translate="title" module="zinebuilder">
+                    <title>Zinebuilder Products API</title>
+                    <model>zinebuilder/product_api</model>
+                    <acl>zinebuilder</acl>
+                    <methods>
+                        <products  translate="title" module="zinebuilder">
+                            <title>Get All Magento Products</title>
+                            <method>products</method>
+                            <acl>zinebuilder</acl>
+                        </products>
+                        <stores translate="title" module="zinebuilder">
+                            <title>Get shop info</title>
+                            <method>stores</method>
+                            <acl>zinebuilder</acl>
+                        </stores>
+                        <product_count translate="title" module="zinebuilder">
+                            <title>Get Product count</title>
+                            <method>product_count</method>
+                            <acl>zinebuilder</acl>
+                        </product_count>
+                    </methods>
+                    <faults module="zinebuilder">
+                        <data_invalid>
+                            <code>100</code>
+                            <message>Invalid data</message>
+                        </data_invalid>
+                    </faults>
+                </zinebuilder>
+        </resources>
+        <acl>
+            <resources>
+                <zinebuilder translate="title" module="zinebuilder">
+                    <title>Automatic Product Catalog Builder</title>
+                    <sort_order>100</sort_order>
+                </zinebuilder>
+            </resources>
+        </acl>
+    </api>
+</config>

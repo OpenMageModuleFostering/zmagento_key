@@ -1,0 +1,82 @@
+<?php
+    require_once("Zination/Zinebuilder/controllers/AuthController.php") ;
+    $zinebuilder = Mage::getModel('zinebuilder/zinebuilder')->getCollection()->getFirstItem() ;
+    $app_id = $zinebuilder->getData('z_app_id') ;
+    $app_domain = md5(Mage::getBaseUrl(Mage_Core_Model_Store::URL_TYPE_WEB)) ;
+    $is_app_verified = $zinebuilder->getData('verified') ; 
+    
+    $query_string = "?app_id=" . $app_id . "&app_domain=" . $app_domain . 
+                    "&app_shop_name=" . Mage::getStoreConfig('trans_email/ident_general/name') ;
+?>
+
+<script>
+var j = $.noConflict();
+
+jbody = j("body");
+j(function(){
+   j("#zine_btn_register_app").click(function(){
+        var l_register_app_url = "<?php echo $this->getUrl('zinebuilder/index/appregister/');?>?isAjax=true";
+        j.post(l_register_app_url,
+            {'form_key': window.FORM_KEY}
+        )
+        .done(function(data){
+            j("#mg-text").html( data.status + "-" + data.message ) ;
+            j("#dialog-message").dialog({
+                modal: true,
+                close: function(){
+                    location.reload() ;
+                },
+                button: {
+                    "OK": function(){
+                       j(this).dialog("close");
+                    }
+                }
+            });
+        })
+        .fail(function(data){
+            j("#mg-text").html(data.status + ' - ' + 'Failed to register with server') ;
+            j("#dialog-message").dialog({
+                modal: true,
+                button: {
+                    OK: function(){
+                        j(this).dialog("close");
+                    }
+                }
+            });
+        });
+   
+   });
+});
+
+j(document).on({
+    ajaxStart: function() { jbody.addClass("loading");    },
+    ajaxStop: function() {  jbody.removeClass("loading"); }    
+});
+
+</script>
+
+<div class="content-header">
+    <h3 class="icon-head head-system-account">Product Catalog Builder</h3>
+</div>
+
+<div class="app-box">
+    <div class="app-content">
+        <div class="app-title">
+            Launch Dashboard
+        </div>
+        <div class="app-description">
+            <p>
+                Launch the ZInation Dashboard to create your product catalog.
+            </p>
+        </div>
+        <div class="app-button">
+            <a href="<?php echo Zination_Zinebuilder_AuthController::getUserDashboard() . $query_string ; ?>" target="blank">
+                <span>Launch Now</span>
+            </a>
+        </div>
+    </div>
+    <div class="app-img">
+        <div class="app-dashboard"></div>
+    </div>
+</div>
+

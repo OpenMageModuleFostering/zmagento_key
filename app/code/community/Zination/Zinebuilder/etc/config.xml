@@ -1,0 +1,50 @@
+<?xml version="1.0"?>
+<config>
+    <modules>
+        <Zination_Zinebuilder>
+            <version>1.0.7</version>
+        </Zination_Zinebuilder>
+    </modules>
+
+    <global>
+        <models>
+            <zinebuilder>
+                <class>Zination_Zinebuilder_Model</class>
+                <resourceModel>zinebuilder_resource</resourceModel>
+            </zinebuilder>
+            <zinebuilder_resource>
+                <class>Zination_Zinebuilder_Model_Resource</class>
+                <entities>
+                    <zinebuilder>
+                        <table>zinebuilder</table>
+                    </zinebuilder>
+                </entities>
+            </zinebuilder_resource>
+        </models>
+        <helpers>
+            <zinebuilder>
+                <class>Zination_Zinebuilder_Helper</class>
+            </zinebuilder>
+        </helpers>
+        <resources>
+            <zinebuilder_setup>
+                <setup>
+                    <module>Zination_Zinebuilder</module>
+                    <class>Zination_Zinebuilder_Model_Resource_Setup</class>
+                </setup>
+            </zinebuilder_setup>
+        </resources>
+    </global>
+    
+    <admin>
+        <routers>
+            <zinebuilder>
+                <use>admin</use>
+                <args>
+                    <module>Zination_Zinebuilder</module>
+                    <frontName>zinebuilder</frontName>
+                </args>
+            </zinebuilder>
+        </routers>
+    </admin>
+</config>
