@@ -1,7 +1,7 @@
 {
-    "name": "OpenMageModuleFostering\/ZMAGENTO_KEY",
+    "name": "openmage-module-fostering\/zmagento_key",
     "type": "magento-module",
-    "license": "GNU-Lesser-General-Public-License-(LGPL)",
+    "license": "OSL-3.0",
     "homepage": "",
     "description": "This is the first release of the ZINation Automatic Product Catalog Builder for Magento.",
     "authors": [

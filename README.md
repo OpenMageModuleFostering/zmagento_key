@@ -1,3 +1,5 @@
+
+
 ## Original Package Description
 
 This is the first release of the ZINation Automatic Product Catalog Builder for Magento.
